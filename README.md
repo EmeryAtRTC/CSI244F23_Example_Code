@@ -1,8 +1,8 @@
 # Renton Technical College CSI-244
-<br />
-<div align="center">  
-    ![image](https://github.com/EmeryAtRTC/CSI244F23_Example_Code/assets/102991550/fbd95318-e315-481d-92fb-0f4e37e4d2aa)
+<br />    
+![image](https://github.com/EmeryAtRTC/CSI244F23_Example_Code/assets/102991550/2845fd8e-5aaf-4165-97d4-e67f5b2e00a8)
 
+<div align="center">  
     <h3 align="center">Weekly Example Code</h3>
 </div>
 
