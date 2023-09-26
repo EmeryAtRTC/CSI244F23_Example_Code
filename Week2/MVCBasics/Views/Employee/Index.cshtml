@@ -1,0 +1,12 @@
+﻿@*
+    This is how you comment
+    Inside of your view, we need to tell the view what kind of data to expect - Model
+*@
+@model List<Employee>
+<h2>This is the employee index page</h2>
+
+@foreach(Employee employee in Model){
+    <p>ID: @employee.Id</p>
+    <p>Full Name: @employee.FirstName @employee.LastName</p>
+    <p>Email: @employee.Email</p>
+}
