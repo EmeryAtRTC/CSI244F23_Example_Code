@@ -1,7 +1,11 @@
+using MVCBasics.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//lets add our new service to the services collection
+builder.Services.AddSingleton<IDiceRoller, NewDiceRoller>();
 
 var app = builder.Build();
 

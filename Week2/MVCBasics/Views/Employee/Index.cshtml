@@ -9,4 +9,5 @@
     <p>ID: @employee.Id</p>
     <p>Full Name: @employee.FirstName @employee.LastName</p>
     <p>Email: @employee.Email</p>
+    <a asp-controller="Employee" asp-action="Details" asp-route-id="@employee.Id">See Details</a>
 }

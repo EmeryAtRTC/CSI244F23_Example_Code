@@ -1,0 +1,13 @@
+﻿@*
+    What is the first thing we do inside of a new view?
+    Tell the view what type of Model to expect
+    @model datatype
+*@
+@model Employee
+<h2>This is the employee details page</h2>
+<div>
+    <h3>@Model.FirstName @Model.LastName</h3>
+    <hr />
+    <p><em>@Model.Email</em></p>
+    <p>@Model.Active</p>
+</div>
