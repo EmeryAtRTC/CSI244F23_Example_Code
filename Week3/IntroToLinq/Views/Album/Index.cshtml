@@ -1,0 +1,26 @@
+﻿@*
+    First thing we need to do is: Tell the view what the Model is
+*@
+@model IEnumerable<Album>
+
+<table class="table table-dark table-striped">
+    <tr>
+        <th>Title</th>
+        <th>Genre</th>
+        <th>Artist</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+    @*Loop through the model and make a row foreach album*@
+    @foreach(Album a in Model)
+    {
+        <tr>
+            <td>@a.Title</td>
+            <td>@a.Genre</td>
+            <td>@a.Artist</td>
+            <td>@a.Price</td>
+            @*Link to the Album Controller, The Details Endpoint, pass the album id to the id parameter*@
+            <td><a class="btn btn-outline-primary" asp-controller="Album" asp-action="Details" asp-route-id="@a.Id" >Details</a></td>
+        </tr>
+    }
+</table>
