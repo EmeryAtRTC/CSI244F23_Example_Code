@@ -1,6 +1,7 @@
 ﻿using IntroToLinq.Models;
 using LinqDemo.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace IntroToLinq.Controllers
 {
@@ -66,12 +67,36 @@ namespace IntroToLinq.Controllers
         //This endpoint can only take Get Requests - GET is the default
         public IActionResult Create()
         {
+            //lets try to generate a list of the genres from the album list
+            //What I have is a list of Album, what I need is a list of Genre(string)
+            //Select() converts from one type of collection to another
+            IEnumerable<string> genres =  _albums.Select(a => a.Genre).Distinct();
+            //return Json(genres);
+            //I need a collection of SelectListItem
+            //SelectListItem has three properties
+            //Text, Value, Selected
+            IEnumerable<SelectListItem> selectList = genres.Select(genre => new SelectListItem
+            {
+                Text = genre,
+                Value = genre
+            });
+            //return Json(selectList);
+            //There is a container in .net called the ViewBag
+            //It is automatically sent to every view
+            //Its an generic object container
+            ViewBag.genreList = selectList;
             return View();
         }
         //Part2 POST
         [HttpPost]
         public IActionResult Create(Album album)
         {
+            //We need to check that the ModelState is valid
+            if (!ModelState.IsValid)
+            {
+                //send the user back to the view if they fail validation
+                return View(album);
+            }
 
             //An album comes into this method
             //Lets set the primary key by hand (normally the database does this)
@@ -110,8 +135,28 @@ namespace IntroToLinq.Controllers
         [HttpPost]
         public IActionResult Edit(Album album)
         {
-            //you need the primary key to post back
-            return Json(album);
+            //Check the ModelState Object
+            if(!ModelState.IsValid)
+            {
+                //if validation fails send the user back to the view and pass the model
+                return View(album);
+            }
+            //if I make it down here I know that I passed validation
+            //pull the album out of the data
+            Album albumToUpdate = _albums.SingleOrDefault(a => a.Id == album.Id);
+            //check to make sure that album exists
+            if(albumToUpdate == null)
+            {
+                return NotFound();
+            }
+            albumToUpdate.Title = album.Title;
+            albumToUpdate.Artist = album.Artist;
+            albumToUpdate.Price = album.Price;
+            albumToUpdate.Genre = album.Genre;
+            //Where should we go from here, Where should we send the user?
+            //Lets redirect to details for the updatedAlbum
+            //Passing an ID to Details using an anonymous object
+            return RedirectToAction("Details", new { id = album.Id});
         }
         
 
