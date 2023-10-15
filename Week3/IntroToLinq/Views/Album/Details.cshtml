@@ -1,0 +1,11 @@
+﻿@model Album
+
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">@Model.Title</h5>
+    <h5 class="card-title">@Model.Artist</h5>
+    <p class="card-text">@Model.Genre @Model.Price</p>
+    <a asp-action="Index" class="btn btn-warning">--Back to album list</a>
+  </div>
+</div>

@@ -21,13 +21,32 @@ namespace IntroToLinq.Controllers
         //lets take in some parameters that we may want to filter by
         //lets take in a genre, if genre receives a value filter by it
         //if it does not get a value show all albums
-        public IActionResult Index(string genre)
+        public IActionResult Index(string genre, string title)
         {
+            //lets get all the distinct genres
+            IEnumerable<string> genres = _albums.Select(x => x.Genre).Distinct();
+            IEnumerable<SelectListItem> genreSelect = genres.Select(g => new SelectListItem
+            {
+                Text = g,
+                Value = g,
+                Selected = genre == g
+            });
+            ViewBag.genreList = genreSelect;
+
             //if genre contains a value
             if (!string.IsNullOrEmpty(genre))
             {
                 IEnumerable<Album> filteredAlbums = _albums.Where(a => a.Genre == genre);
-                return Json(filteredAlbums);
+                return View(filteredAlbums);
+            }
+
+            //lets check to see if title has a value
+            if (!string.IsNullOrEmpty(title))
+            {
+                //search the albums for a matching title
+                //search albums for all titles that contained the search value, ignore case
+                IEnumerable<Album> filteredAlbums = _albums.Where(a => a.Title.ToLower().Contains(title.ToLower()));
+                return View(filteredAlbums);
             }
             //filter the albums
             //Where() method
@@ -56,7 +75,7 @@ namespace IntroToLinq.Controllers
                 return NotFound();
             }
             //if we make it down here we know that we found an Ablum
-            return Json(album);
+            return View(album);
         }
 
         //Lets do a Create - 2 steps
@@ -94,6 +113,16 @@ namespace IntroToLinq.Controllers
             //We need to check that the ModelState is valid
             if (!ModelState.IsValid)
             {
+                //Anything that was passed in the ViewBag has to be re-created
+                //before we send the user back
+                //We just need to generate our list again
+                IEnumerable<string> genres = _albums.Select(a => a.Genre).Distinct();
+                IEnumerable<SelectListItem> selectList = genres.Select(genre => new SelectListItem
+                {
+                    Text = genre,
+                    Value = genre
+                });
+                ViewBag.genreList = selectList;
                 //send the user back to the view if they fail validation
                 return View(album);
             }

@@ -3,6 +3,32 @@
 *@
 @model IEnumerable<Album>
 
+<div class="row mb-4">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <form asp-action="Index" method="get">
+                <label class="form-label"> 
+                    Filter by genre:
+                </label>
+                <select class="form-control" onchange="this.form.submit()" name="genre" asp-items="@ViewBag.genreList">
+                    <option selected value="">No Filter</option>
+                </select>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <form asp-action="Index" method="get">
+                <label class="form-label">
+                    Search by title:
+                </label>
+                <input class="form-control" type="text" name="title"/>
+                <input type="submit" value="Search" class="btn btn-outline-primary"/>
+            </form>
+        </div>
+    </div>
+</div>
+
 <table class="table table-dark table-striped">
     <tr>
         <th>Title</th>
