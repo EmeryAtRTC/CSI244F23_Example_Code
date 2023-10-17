@@ -1,4 +1,4 @@
-using LinqDemo.Data;
+using IntroToLinq.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 // register the interface and concrete class with services collection
 builder.Services.AddSingleton<IAlbumList, AlbumList>();
+builder.Services.AddSingleton<IPublisherList, PublisherList>();
 // Add Singleton, Add Scoped, Add Transient
 // Singleton We make one AlbumList and pass it around
 // Scoped, We make a new album list for each CONTROLLER that asks for it

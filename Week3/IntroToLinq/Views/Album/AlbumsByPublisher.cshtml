@@ -1,0 +1,6 @@
+﻿@model IEnumerable<Album>
+
+@foreach(Album a in Model)
+{
+    <p>Title: @a.Title Artist: @a.Artist Publisher: @a.Publisher.Name</p>
+}

@@ -1,6 +1,6 @@
 ﻿using IntroToLinq.Models;
 
-namespace LinqDemo.Data
+namespace IntroToLinq.Data
 {
     public interface IAlbumList
     {

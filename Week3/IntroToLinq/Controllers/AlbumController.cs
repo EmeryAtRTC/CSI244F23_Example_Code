@@ -1,5 +1,5 @@
 ﻿using IntroToLinq.Models;
-using LinqDemo.Data;
+using IntroToLinq.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -11,11 +11,13 @@ namespace IntroToLinq.Controllers
         //lets create our fields
         IAlbumList _albumService;
         List<Album> _albums;
+        List<Publisher> _publishers;
         //constructor assigns values to the fields
-        public AlbumController(IAlbumList albumService)
+        public AlbumController(IAlbumList albumService, IPublisherList publisherService)
         {
             _albumService = albumService;
             _albums = _albumService.GetAlbums();
+            _publishers = publisherService.GetPublishers();
         }
         //Lets modify the index
         //lets take in some parameters that we may want to filter by
@@ -199,6 +201,26 @@ namespace IntroToLinq.Controllers
             }
             //there is an impled else
             return Json(_albums.OrderBy(a => a.Price).Where(a=> a.Genre == genre));
+        }
+        //We want to get the albums that are associated with a given publisherId
+        public IActionResult AlbumsByPublisher(int publisherId)
+        {
+            //get all of the albums that are associated with this parameter
+            //IEnumerable<Album> filteredAlbums = _albums.Where(a => a.PublisherId == publisherId);
+            //get the publisher from the publishers collection
+            //Publisher publisher = _publishers.SingleOrDefault(p => p.Id == publisherId);
+            //List of album and we want to include the publisher
+            IEnumerable<Album> filteredAlbums = _albums.Where(a => a.PublisherId == publisherId).Select(a => new Album
+            {
+                Id =a.Id,
+                Artist = a.Artist,
+                Title = a.Title,
+                Genre = a.Genre,
+                Price = a.Price,
+                PublisherId = a.PublisherId,
+                Publisher = _publishers.SingleOrDefault(p => p.Id == publisherId)
+            });
+            return View(filteredAlbums);
         }
     }
 }
