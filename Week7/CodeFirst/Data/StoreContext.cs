@@ -18,5 +18,16 @@ namespace CodeFirst.Data
         public DbSet<ProductOrder> ProductOrders { get; set; }
         public DbSet<Product> Products { get; set; }
         //next step setup your databsae connection
+        //There is a method called OnModelCreating
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //I can seed my database in here - Old way. I would no longer do this
+            modelBuilder.Entity<Product>().HasData(
+                    new Product() { Id = 1, Name = "4090", Price = 1600m, BarCode = "234098" },
+                    new Product() { Id = 2, Name = "IPhone", Price = 1000m, BarCode = "2938747" });
+            base.OnModelCreating(modelBuilder);
+        }
+
+
     }
 }

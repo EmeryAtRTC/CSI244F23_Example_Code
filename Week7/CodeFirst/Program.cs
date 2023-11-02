@@ -6,7 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 //This is where we add things to the service collection
+//I pulled the connection string out of appsettings.json
 string connectString = builder.Configuration.GetConnectionString("StoreContext");
+//Console.WriteLine(connectString);
 builder.Services.AddDbContext<StoreContext>(options =>
 options.UseSqlServer(connectString));
 //We have added our database to the services collection
