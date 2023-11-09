@@ -1,0 +1,42 @@
+﻿@model Customer
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to Delete this?</h3>
+
+<h4>This is permanent and cannot be reversed.</h4>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.FirstName
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.LastName
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Phone
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Email
+        </dd>
+    </dl>
+    <form asp-action="Delete" method="post">
+        <input asp-for="Id" hidden />
+        <input class="btn btn-danger" type="submit" value="Delete" />
+        <a class="btn btn-success" asp-action="Index">Take me back</a>
+    </form>
+</div>
