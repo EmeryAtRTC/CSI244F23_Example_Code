@@ -42,6 +42,7 @@
                     @customer.Email
                 </td>
                 <td>
+                    <a class="btn btn-outline-success" asp-controller="Vehicle" asp-action="Create" asp-route-customerId="@customer.Id">Create Vehicle</a>
                     <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@customer.Id">Details</a>
                     <a class="btn btn-outline-secondary" asp-action="Edit" asp-route-id="@customer.Id">Edit</a>
                     <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@customer.Id">Delete</a>
