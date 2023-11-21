@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AutoShop.Models;
+using AutoShop.Validation;
+using System.ComponentModel.DataAnnotations;
 
-namespace AutoShop.Models
+namespace AutoShop.ViewModels
 {
-    public class Vehicle
+    public class VehicleCreateVM
     {
         public int Id { get; set; }
         [Required]
@@ -17,6 +19,11 @@ namespace AutoShop.Models
         public int CustomerId { get; set; }
         //Lets store an image location
         public string ImageLocation { get; set; }
+        //Property to capture the file that the user uploads
+        [Display(Name = "Upload Vehicle Image")]
+        //Your validations only run on the server side
+        [VehicleImageValidation]
+        public IFormFile VehicleImage { get; set; }
         //Nagivation property-does not exists in the database
         public Customer Customer { get; set; }
         //Each vehicle can have multiple services performed on it
