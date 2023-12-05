@@ -1,6 +1,9 @@
-﻿namespace AutoShop.Models
+﻿using AutoShop.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace AutoShop.ViewModels
 {
-    public class ServicePerformed
+    public class ServicePerformedCreateVM
     {
         public int Id { get; set; }
         public DateTime TimePerformed { get; set; }
@@ -13,5 +16,9 @@
         //Navigation
         public Technician Technician { get; set; }
         public Vehicle Vehicle { get; set; }
+        //I need to send a selectList for Technicians
+        //I need to send a selectlist for status
+        public IEnumerable<SelectListItem> TechnicianList { get; set; }
+        public IEnumerable<SelectListItem> ServiceStatusList { get; set; }
     }
 }

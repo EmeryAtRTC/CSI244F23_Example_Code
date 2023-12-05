@@ -1,0 +1,47 @@
+﻿@model ServicePerformedCreateVM
+
+<h2>
+    Log Service for:
+    <a asp-controller="Vehicle" asp-action="Details" asp-route-id="@Model.VehicleId">@Model.Vehicle.Make @Model.Vehicle.Model</a>
+</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <input asp-for="VehicleId" hidden />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TechnicianId" class="control-label"></label>
+                <select asp-for="TechnicianId" asp-items="@Model.TechnicianList" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ServiceStatusId" class="control-label"></label>
+                <select asp-for="ServiceStatusId" asp-items="@Model.ServiceStatusList" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimePerformed" class="control-label"></label>
+                <input asp-for="TimePerformed" class="form-control" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Notes" class="control-label"></label>
+                <textarea class="form-control" asp-for="Notes" cols="50" rows="5"></textarea>
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
